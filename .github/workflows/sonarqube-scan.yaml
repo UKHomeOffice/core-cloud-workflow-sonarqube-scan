@@ -1,0 +1,43 @@
+name: Sonarqube Reusable Scanner
+
+on:
+  workflow_call:
+    secrets:
+      account_id:
+        required: false
+      sonar_token:
+        required: true
+      sonar_host_url:
+        required: true
+
+permissions:
+  contents: read
+  id-token: write
+  actions: read
+  security-events: write
+
+jobs:
+  sonarqube-scanner:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - id: sonar-scan
+        uses: sonarsource/sonarqube-scan-action@v4
+        env:
+          SONAR_TOKEN: ${{ secrets.sonar_token }}
+          SONAR_HOST_URL: ${{ secrets.sonar_host_url }}
+          DEBUG1: ${{ github.repository }}
+          DEBUG2: ${{ github.event.repository.name }}
+        with:
+          args: >
+            -Dsonar.projectKey=${{ github.event.repository.name }}
+            -Dsonar.projectName=${{ github.event.repository.name }}
+            -Dsonar.sources=.
+            -Dsonar.qualitygate.wait=true
+            -Dsonar.sarif.path=sonar-report.sarif
+            -Dsonar.terraform.provider.aws.version=5.0
+            -Dsonar.scm.provider=git
