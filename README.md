@@ -33,7 +33,7 @@ TODO: Change logic for Sonar token
 
 If you wish to use a sonar-project.properties file for more granualar configuration, place it in your root directory.
 
-     # Example Properies file
+     # Example Properties file
      # If no projectKey and/or projectName is provided, it will automatically use the repo name
      sonar.projectKey=UKHomeOffice:james-test-sonarqube-name-override
      sonar.projectName=James Test Sonarqube Name Override
