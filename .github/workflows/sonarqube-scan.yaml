@@ -39,6 +39,14 @@ jobs:
             echo "sonar.projectName not found in properties file. Using repo name as fallback."
             EXTRA_ARGS="${EXTRA_ARGS} -Dsonar.projectName=${{ github.event.repository.name }}"
           fi
+          if ! grep -q "sonar.qualitygate.wait" sonar-project.properties; then
+            echo "sonar.qualitygate.wait not found in properties file. Using Setting as false as fallback."
+            EXTRA_ARGS="${EXTRA_ARGS} -Dsonar.qualitygate.wait=false"
+          fi
+          if ! grep -q "sonar.sources" sonar-project.properties; then
+            echo "sonar.sources not found in properties file. Using . root directory as fallback"
+            EXTRA_ARGS="${EXTRA_ARGS} -Dsonar.sources=."
+          fi
           echo "sonar-args=$EXTRA_ARGS" >> "$GITHUB_OUTPUT"
 
       - id: sonar-scan
@@ -51,8 +59,5 @@ jobs:
         with:
           args: >
             ${{ steps.build_args.outputs.sonar-args }}
-            -Dsonar.sources=.
-            -Dsonar.qualitygate.wait=false
             -Dsonar.sarif.path=sonar-report.sarif
-            -Dsonar.terraform.provider.aws.version=5.0
             -Dsonar.scm.provider=git
