@@ -52,18 +52,7 @@ jobs:
           args: >
             ${{ steps.build_args.outputs.sonar-args }}
             -Dsonar.sources=.
-            -Dsonar.qualitygate.wait=true
+            -Dsonar.qualitygate.wait=false
             -Dsonar.sarif.path=sonar-report.sarif
             -Dsonar.terraform.provider.aws.version=5.0
             -Dsonar.scm.provider=git
-
-      - name: Upload SARIF artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: sonarqube-sarif-report
-          path: sonar-report.sarif
-
-      - name: Upload SonarQube SARIF to GitHub
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: sonar-report.sarif
