@@ -30,3 +30,13 @@ Add the following workflow config in your repo:
            sonar_host_url: ${{ secrets.sonar_host_url }}
 
 TODO: Change logic for Sonar token
+
+If you wish to use a sonar-project.properties file for more granualar configuration, place it in your root directory. Please consult the Sonarqube documentation [here](https://docs.sonarsource.com/sonarqube-cloud/advanced-setup/analysis-parameters/) for more extensive configuration.
+
+     # If no projectKey and/or projectName is provided, it will automatically use the repo name
+     sonar.projectKey=UKHomeOffice:james-test-sonarqube-name-override
+     sonar.projectName=James Test Sonarqube Name Override
+     sonar.projectVersion=1.0.0
+     sonar.sources=.
+     # if you wish
+     sonar.qualitygate.wait=false
