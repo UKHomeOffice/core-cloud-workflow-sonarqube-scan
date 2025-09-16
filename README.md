@@ -8,9 +8,18 @@ The reusable workflow file exists here. This is for informational purposes only.
 
 ## Implementation
 
-Add the SONAR_TOKEN and SONAR_HOST_URL environment secrets to your repo.
+### Tokens
+In Sonarqube, each project will have a project admin account associated with it. This is where the Sonar Scanner token will be created. Ask your project admin to generate a User Token on your tenant admin account.
 
-#TODO Currently using a Global Analysis Token for the admin account. This is temporary whilst we wait for the SAML accounts to be fixed so we can test the solution of using a global analysis token for a non-admin scoped user account acting as a service account. Docs suggest that global analysis token means just that, but that seems like a security flaw. Will confirm once testing can continue.
+Project admin steps:
+- Login to Sonarqube.
+- Click your user in the top right of the screen, then click "My Account".
+- On the Security tab, create a name, select token type as "User Token", and set "No Expiration".
+- Go to the Github repo and add the token in Settings -> Secrets and Variables -> Actions -> New Repository Secret.
+
+Secret names to use:
+SONAR_TOKEN (Contains the token you just created)
+SONAR_HOST_URL (contains the Sonarqube host e.g. https://sonarqube.cc-platform-ops-tooling-test-1.np.core.homeoffice.gov.uk)
 
 Add the following config into the following directory in your repository `.github/workflow/sonarqube-scan.yaml`, or build into your own workflow logic if more complex.
 
@@ -53,4 +62,4 @@ Add the following config into the following directory in your repository `.githu
      sonar.qualitygate.wait=false
      sonar.issues.fail=false
 ```
-- When adding the Sonar feature to an existing repo, it would be best to push the Sonar feature on its own to your primary branch. This will highlight any existing code quality issues your primary branch currently has.
+Github - When adding the Sonar feature to an existing repo, it would be best to push the Sonar feature on its own to your primary branch. This will highlight any existing code quality issues your primary branch currently has.
