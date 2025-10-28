@@ -19,7 +19,7 @@ Project admin steps:
 
 Secret names to use:
 SONAR_TOKEN (Contains the token you just created)
-SONAR_HOST_URL (contains the Sonarqube host e.g. https://sonarqube.cc-platform-ops-tooling-test-1.np.core.homeoffice.gov.uk)
+SONAR_HOST_URL (contains the Sonarqube host e.g. https://sonarqube.example.com)
 
 Add the following config into the following directory in your repository `.github/workflow/sonarqube-scan.yaml`, or build into your own workflow logic if more complex.
 
