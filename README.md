@@ -22,7 +22,7 @@ SONAR_TOKEN (Contains the token you just created)
 SONAR_HOST_URL (contains the Sonarqube host e.g. https://sonarqube.example.com)
 
 - Repeat these steps in Settings -> Secrets and Variables -> Dependabot -> New Repository Secret.
-
+  NOTE: If you are unable to see the Dependabot secret submenu, please reach out to Team Sauron
 Add the following config into the following directory in your repository `.github/workflow/sonarqube-scan.yaml`, or build into your own workflow logic if more complex.
 
     name: Sonarqube Scanner
